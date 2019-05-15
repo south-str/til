@@ -18,3 +18,16 @@ git filter-branch -f --env-filter "GIT_AUTHOR_NAME='[author-name]'; GIT_AUTHOR_E
 ```
 git push -f origin [branch-name]
 ```
+
+## stashに名前をつけたい
+
+`git stash save`を行うと直前のコミットメッセージが表示され、後々`git stash list`で一覧を表示した時に作業内容を把握することができない。
+
+`git stash save [<message>]`の形式で実行するとメッセージを登録することができるため、現在の作業内容を端的に示すことができる。
+
+```
+git stash save "issue0000対応(wip)"
+```
+
+という感じになる。詳細は`man git-stash`を参照。
+
