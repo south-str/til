@@ -40,29 +40,36 @@ git管理ディレクトリである.gitの中にあるhooksディレクトリ�
 ```sh
 #!/bin/sh
 
-# 基準となるcommitを取得している? .git/hooks/pre-commit.sampleから拝借した
-if git rev-parse --verify HEAD >/dev/null 2>&1
-then
-  against=HEAD
-else
-  # Initial commit: diff against an empty tree object
-  against=$(git hash-object -t tree /dev/null)
-fi
-
 # 変更/追加したファイルの一覧を取得する
 files=$(git diff --cached --name-only --diff-filter=AM)
-echo $files
+# echo $files # テスト用に表示する
 # 取得したファイル一覧をリストとしてphpのlintを実行する
+php_extension=php
+end_flag=0
 for file in $files; do
-  php --syntax-check $file
-  if [ $? != 0 ]; then
-    echo 'abort commit'
-    exit 1
+  extension=${file##*.} # 拡張子(.を除く)を取り出すために前方最長一致で変数展開する
+  # echo ${file} # テスト用に表示する
+  # echo ${extension} # テスト用に表示する
+  if [ ${extension} = ${php_extension} ]; then # 拡張子がphpの時のみ構文チェックを行う
+    php --syntax-check $file
+    command_result=${?} # $?は別のコマンドを実行すると置き換わるので変数に格納して繰り返し参照できるようにする
+    # echo ${command_result} # テスト用に表示する
+    if [ ${command_result} != 0 ]; then
+      if [ ${end_flag} = 0 ]; then
+        end_flag=${command_result}
+        # echo ${end_flag} # テスト用に表示する
+      fi
+    fi
   fi
 done
-
-echo 'syntax ok'
-exit 0
+#git diff --cached --name-only --diff-filter=AM -z $against
+if [ ${end_flag} = 0 ]; then
+  echo 'syntax ok'
+  exit 0
+else
+  echo 'syntax error. commit abort'
+  exit 1
+fi
 ```
 
 これを`.git/hooks/pre-commit`として保存すれば、commit前にこのスクリプトが実行される。
