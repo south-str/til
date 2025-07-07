@@ -1,5 +1,9 @@
 # git
 
+公式サイト
+
+[Git](https://git-scm.com/)
+
 ## リモートにpushした後にcommitterとauthorが間違っていることに気付いた時
 
 過去のコミット情報にあるCommitterとAuthorを変更する。
@@ -30,6 +34,11 @@ git stash save "issue0000対応(wip)"
 ```
 
 という感じになる。詳細は`man git-stash`を参照。
+
+## 特定のファイルのみstashしたい
+
+`git stash push -- [<pathspec>...]`で指定したファイルのみ`stash`することができる。
+`man git-stash`を参照せよ。
 
 ## pre-commitで`php -l`をする
 
