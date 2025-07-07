@@ -86,3 +86,8 @@ fi
 注意として、このスクリプト自体をgitで管理することはできない。そのため、他の開発者にも使用してもらいたい場合は別のディレクトリで管理しておいてそちらを参照する設定にするか、開発環境をセットアップする際にhooksへコピーするようなスクリプトを別途用意しておかなければならない。
 
 それとエラーが起きたファイルを修正したら`git add`を忘れないように。stagingされていないので、他のファイルだけcommitされてしまう。
+
+## authorとcommitterを変更する
+
+[Git の Commit Author と Commiter を変更する #GitHub - Qiita](https://qiita.com/sea_mountain/items/d70216a5bc16a88ed932)
+
