@@ -91,3 +91,17 @@ fi
 
 [Git の Commit Author と Commiter を変更する #GitHub - Qiita](https://qiita.com/sea_mountain/items/d70216a5bc16a88ed932)
 
+## 特定のコミットハッシュの地点までコミットをなかったことにする
+
+[困ったときの git reset コマンド集 #Git - Qiita](https://qiita.com/ChaaaBooo/items/459d5417ff4cf815abce)
+
+`git reset --hard <commit hash>`
+
+リモートリポジトリに反映させる時は`git push -f <remote repository> <remote branch>`を実行する。
+例としては以下のようになる。
+
+```
+git reset --hard HEAD^
+git push -f origin develop
+```
+
