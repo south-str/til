@@ -105,3 +105,15 @@ git reset --hard HEAD^
 git push -f origin develop
 ```
 
+## パッチを適用する
+
+`git apply --check [<patch>...]`で適用前確認を行い、`--check`なしで適用する。
+
+## mergeしたあとそのmergeを取り消す
+
+マージした履歴ごと消す。
+
+```
+git reset --hard <commit hash>
+```
+
